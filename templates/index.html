@@ -2,33 +2,109 @@
 <html>
 <head>
     <title>Car Dealer</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            padding: 20px;
+            background-color: #4CAF50;
+            margin: 0;
+            color: white;
+        }
+
+        table {
+            width: 90%;
+            margin: 20px auto;
+            border-collapse: collapse;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            background-color: white;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: center;
+            border: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        tr:hover {
+            background-color: #ddd;
+        }
+
+        a {
+            text-decoration: none;
+            color: #4CAF50;
+            font-weight: bold;
+        }
+
+        a:hover {
+            color: #45a049;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .add-button {
+            display: block;
+            width: 150px;
+            margin: 20px auto;
+            padding: 10px;
+            text-align: center;
+            background-color: #4CAF50;
+            color: white;
+            border-radius: 5px;
+            text-decoration: none;
+        }
+
+        .add-button:hover {
+            background-color: #45a049;
+        }
+    </style>
 </head>
 <body>
-    <h1>Cars</h1>
-    <a href="{{ url_for('add_car') }}">Add New Car</a>
-    <table border="1">
-        <tr>
-            <th>Make</th>
-            <th>Model</th>
-            <th>Year</th>
-            <th>Price</th>
-            <th>Status</th>
-            <th>Actions</th>
-        </tr>
-        {% for car in cars %}
-        <tr>
-            <td>{{ car[1] }}</td>
-            <td>{{ car[2] }}</td>
-            <td>{{ car[3] }}</td>
-            <td>{{ car[4] }}</td>
-            <td>{{ car[5] }}</td>
-            <td>
-                <a href="{{ url_for('add_expense', car_id=car[0]) }}">Add Expense</a> |
-                +<a href="{{ url_for('view_expenses', car_id=car[0]) }}">View Expenses</a>
-
-            </td>
-        </tr>
-        {% endfor %}
-    </table>
+    <div class="container">
+        <h1>Cars</h1>
+        <a href="{{ url_for('add_car') }}" class="add-button">Добави кола</a>
+        <table>
+            <tr>
+                <th>Марка</th>
+                <th>Модел</th>
+                <th>Година</th>
+                <th>Цена</th>
+                <th>Статус</th>
+                <th>Сервиз</th>
+            </tr>
+            {% for car in cars %}
+            <tr>
+                <td>{{ car[1] }}</td>
+                <td>{{ car[2] }}</td>
+                <td>{{ car[3] }}</td>
+                <td>{{ car[4] }}</td>
+                <td>{{ car[5] }}</td>
+                <td>
+                    <a href="{{ url_for('add_expense', car_id=car[0]) }}">Добави описание</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
 </body>
 </html>
