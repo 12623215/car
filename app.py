@@ -3,10 +3,16 @@ import sqlite3
 
 app = Flask(__name__)
 
+# Функция за свързване с базата данни
+def get_db_connection():
+    conn = sqlite3.connect('cars.db')
+    conn.row_factory = sqlite3.Row  # За по-удобен достъп до резултатите като речник
+    return conn
+
 # Основен маршрут, който показва всички коли
 @app.route('/')
 def index():
-    conn = sqlite3.connect('cars.db')
+    conn = get_db_connection()
     c = conn.cursor()
     c.execute('SELECT * FROM Cars')
     cars = c.fetchall()
@@ -23,7 +29,7 @@ def add_car():
         price = request.form['price']
         status = request.form['status']
         
-        conn = sqlite3.connect('cars.db')
+        conn = get_db_connection()
         c = conn.cursor()
         c.execute('''
             INSERT INTO Cars (make, model, year, price, status)
@@ -44,7 +50,7 @@ def add_expense(car_id):
         amount = request.form['amount']
         description = request.form['description']
         
-        conn = sqlite3.connect('cars.db')
+        conn = get_db_connection()
         c = conn.cursor()
         c.execute('''
             INSERT INTO Car_Expenses (car_id, expense_date, amount, description)
@@ -57,10 +63,20 @@ def add_expense(car_id):
 
     return render_template('add_expense.html', car_id=car_id)
 
+# Маршрут за изтриване на кола
+@app.route('/delete_car/<int:car_id>', methods=['POST'])
+def delete_car(car_id):
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    cursor.execute('DELETE FROM Cars WHERE id = ?', (car_id,))
+    conn.commit()
+    conn.close()
+    return redirect(url_for('index'))  # Пренасочва към основната страница след изтриване
+
 # Маршрут за показване на разходите за конкретна кола
 @app.route('/car/<int:car_id>/expenses')
 def view_expenses(car_id):
-    conn = sqlite3.connect('cars.db')
+    conn = get_db_connection()
     c = conn.cursor()
 
     c.execute('SELECT * FROM Cars WHERE id = ?', (car_id,))
