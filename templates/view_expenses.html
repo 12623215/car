@@ -2,11 +2,74 @@
 <html>
 <head>
     <title>Expenses for {{ car[1] }} {{ car[2] }}</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            padding: 20px;
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        table {
+            width: 80%;
+            margin: 20px auto;
+            border-collapse: collapse;
+        }
+
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        td {
+            background-color: white;
+        }
+
+        a {
+            color: #4CAF50;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .back-link {
+            margin: 20px;
+            display: block;
+            text-align: center;
+        }
+
+        .add-expense {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
 </head>
 <body>
     <h1>Expenses for {{ car[1] }} {{ car[2] }} ({{ car[3] }})</h1>
-    <a href="{{ url_for('index') }}">← Back to Cars</a>
-    <table border="1">
+    <div class="back-link">
+        <a href="{{ url_for('index') }}">← Обратко към колите:</a>
+    </div>
+    <table>
         <tr>
             <th>Дата</th>
             <th>Цена</th>
@@ -20,7 +83,8 @@
         </tr>
         {% endfor %}
     </table>
-    <br>
-    <a href="{{ url_for('add_expense', car_id=car[0]) }}">Add Expense</a>
+    <div class="add-expense">
+        <a href="{{ url_for('add_expense', car_id=car[0]) }}">Add Expense</a>
+    </div>
 </body>
 </html>
