@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Car Dealer</title>
+</head>
+<body>
+    <h1>Cars</h1>
+    <a href="{{ url_for('add_car') }}">Add New Car</a>
+    <table border="1">
+        <tr>
+            <th>Make</th>
+            <th>Model</th>
+            <th>Year</th>
+            <th>Price</th>
+            <th>Status</th>
+            <th>Actions</th>
+        </tr>
+        {% for car in cars %}
+        <tr>
+            <td>{{ car[1] }}</td>
+            <td>{{ car[2] }}</td>
+            <td>{{ car[3] }}</td>
+            <td>{{ car[4] }}</td>
+            <td>{{ car[5] }}</td>
+            <td>
+                <a href="{{ url_for('add_expense', car_id=car[0]) }}">Add Expense</a> |
+                +<a href="{{ url_for('view_expenses', car_id=car[0]) }}">View Expenses</a>
+
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>

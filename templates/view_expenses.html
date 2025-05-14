@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Expenses for {{ car[1] }} {{ car[2] }}</title>
+</head>
+<body>
+    <h1>Expenses for {{ car[1] }} {{ car[2] }} ({{ car[3] }})</h1>
+    <a href="{{ url_for('index') }}">← Back to Cars</a>
+    <table border="1">
+        <tr>
+            <th>Date</th>
+            <th>Amount</th>
+            <th>Description</th>
+        </tr>
+        {% for expense in expenses %}
+        <tr>
+            <td>{{ expense[2] }}</td>
+            <td>{{ expense[3] }}</td>
+            <td>{{ expense[4] }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    <br>
+    <a href="{{ url_for('add_expense', car_id=car[0]) }}">Add Expense</a>
+</body>
+</html>
